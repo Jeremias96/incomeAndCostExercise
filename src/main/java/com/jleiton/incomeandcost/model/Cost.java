@@ -2,8 +2,16 @@ package com.jleiton.incomeandcost.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 @Entity
-public record Cost(@Id Integer id, Double costValue, Double additionalCostValue) {
-    
+@Data
+public class Cost {
+
+    @Id 
+    private final Integer id;
+
+    private final Double costValue;
+
+    private final Double additionalCostValue;
 }
