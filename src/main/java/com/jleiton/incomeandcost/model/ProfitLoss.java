@@ -6,25 +6,31 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 public class ProfitLoss{
 
     @Id 
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private final Integer id; 
+    private Integer id; 
 
-    private final Double calculatedProfitOrLoss;
+    private Double calculatedProfitOrLoss;
     
     @OneToOne
     @JoinColumn(name = "INCOME_ID")
-    private final Income income; 
+    private Income income; 
 
     @OneToOne
     @JoinColumn(name = "COST_ID")
-    private final Cost cost;
+    private Cost cost;
 }

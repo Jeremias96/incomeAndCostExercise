@@ -1,5 +1,6 @@
 package com.jleiton.incomeandcost.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import com.jleiton.incomeandcost.dao.CostRepository;
 import com.jleiton.incomeandcost.dao.IncomeRepository;
 import com.jleiton.incomeandcost.dao.ProfitLossRepository;
 import com.jleiton.incomeandcost.dto.ProfitLossCalculationRequest;
+import com.jleiton.incomeandcost.dto.ProfitLossDTO;
+import com.jleiton.incomeandcost.mapper.ProfitLossMapper;
 import com.jleiton.incomeandcost.model.Cost;
 import com.jleiton.incomeandcost.model.Income;
 import com.jleiton.incomeandcost.model.ProfitLoss;
@@ -62,5 +65,9 @@ public class ProfitOrLossService {
             .additionalCostValue(additionalCostValue).build());
     }
 
-
+    public List<ProfitLossDTO> getAllProfitOrLossCalculated() {
+        log.info("Profit or loss service - Attempting to retrieve all profit or loss calculated");
+        List<ProfitLoss> profitLossList = profitLossRepository.findAll();
+        return ProfitLossMapper.INSTANCE.map(profitLossList);
+    }
 }
