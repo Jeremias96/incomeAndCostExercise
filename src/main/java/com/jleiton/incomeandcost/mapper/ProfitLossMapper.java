@@ -15,7 +15,5 @@ public interface ProfitLossMapper {
     
     List<ProfitLossDTO> map(List<ProfitLoss> profitLossList);
 
-    ProfitLossDTO map(ProfitLoss profitLoss);
-
     ProfitLoss map(ProfitLossDTO profitLossDTO);
 }
