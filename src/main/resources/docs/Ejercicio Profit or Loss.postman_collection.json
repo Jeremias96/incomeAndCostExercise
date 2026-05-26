@@ -1,0 +1,59 @@
+{
+  "info": {
+    "_postman_id": "007cc12b-b4b4-4b9d-a3c4-af1e7417a269",
+    "name": "Ejercicio Profit or Loss",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11791537"
+  },
+  "item": [
+    {
+      "name": "Calculate profit or loss",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"incomeValue\": 310.25,\r\n    \"costValue\": 150.50,\r\n    \"additionalCostValue\": 68.68\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/v1/profit",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "profit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Calculate profit or loss Copy",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/v1/profit",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "profit"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
