@@ -1,7 +1,6 @@
 package com.jleiton.incomeandcost.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +10,13 @@ import com.jleiton.incomeandcost.dao.IncomeRepository;
 import com.jleiton.incomeandcost.dao.ProfitLossRepository;
 import com.jleiton.incomeandcost.dto.ProfitLossCalculationRequest;
 import com.jleiton.incomeandcost.dto.ProfitLossDTO;
+import com.jleiton.incomeandcost.exception.InvalidValuesRequestException;
 import com.jleiton.incomeandcost.mapper.ProfitLossMapper;
 import com.jleiton.incomeandcost.model.Cost;
 import com.jleiton.incomeandcost.model.Income;
 import com.jleiton.incomeandcost.model.ProfitLoss;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,11 +32,14 @@ public class ProfitOrLossService {
     @Autowired
     private ProfitLossRepository profitLossRepository;
     
+    @Transactional
     public Double calculateProfitOrLoss(ProfitLossCalculationRequest req){
+        if (req.getIncomeValue() == null || req.getCostValue() == null || req.getAdditionalCostValue() == null){
+            throw new InvalidValuesRequestException("ProfitLossCalculationRequest requires all values to be not null");
+        }
+
         log.trace("Profit or loss service - Calculating profit or loss for income: {} and costs {}, {}",
-            Optional.of(req.getIncomeValue()).orElse(null),
-            Optional.of(req.getCostValue()).orElse(null),
-            Optional.of(req.getAdditionalCostValue()).orElse(null)
+            req.getIncomeValue(), req.getCostValue(), req.getAdditionalCostValue()
         );
 
         Income savedIncome = saveIncome(req.getIncomeValue());
@@ -44,10 +48,7 @@ public class ProfitOrLossService {
         Double calculatedProfitOrLoss = savedIncome.getIncomeValue() - (savedCost.getCostValue() + savedCost.getAdditionalCostValue());
 
         log.debug("Profit or loss service - Calculated profit or loss for income: {} and costs {}, {}, equals: {}",
-            Optional.of(savedIncome.getIncomeValue()).orElse(null),
-            Optional.of(savedCost.getCostValue()).orElse(null),
-            Optional.of(savedCost.getAdditionalCostValue()).orElse(null),
-            calculatedProfitOrLoss
+            savedIncome.getIncomeValue(), savedCost.getCostValue(), savedCost.getAdditionalCostValue(), calculatedProfitOrLoss
         );
 
         profitLossRepository.save(ProfitLoss.builder().calculatedProfitOrLoss(calculatedProfitOrLoss)
