@@ -6,5 +6,8 @@
 ## Start project
 ./mvnw spring-boot:run
 
+## Run tests
+./mvnw test
+
 ## Swagger UI:
 http://localhost:8080/api/v1/swagger-ui.html

@@ -23,21 +23,13 @@ public class ProfitOrLossController {
     private ProfitOrLossService profitOrLossService;
 
     @PostMapping()
-    public ResponseEntity<?> calculateProfitOrLoss(@RequestBody ProfitLossCalculationRequest request){
-        try {
-            return new ResponseEntity<Double>(profitOrLossService.calculateProfitOrLoss(request), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Double> calculateProfitOrLoss(@RequestBody ProfitLossCalculationRequest request){
+        return new ResponseEntity<Double>(profitOrLossService.calculateProfitOrLoss(request), HttpStatus.OK);
     }
 
     @GetMapping()
     public ResponseEntity<?> getAllProfitOrLossCalculated(){
-        try {
-            return new ResponseEntity<List<ProfitLossDTO>>(profitOrLossService.getAllProfitOrLossCalculated(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<List<ProfitLossDTO>>(profitOrLossService.getAllProfitOrLossCalculated(), HttpStatus.OK);
     }
     
 }
